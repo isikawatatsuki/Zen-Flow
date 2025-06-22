@@ -8,7 +8,7 @@ Route::get('/', function () {
     return Inertia::render('Welcome');
 })->name('home');
 
-Route::get('/fetchData', [ApiDataController::class, 'fetchData']);
+Route::get('/import', [ApiDataController::class, 'fetchData'])->name('import');
 
 
 Route::get('dashboard', function () {
