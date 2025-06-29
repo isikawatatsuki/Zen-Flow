@@ -11,21 +11,24 @@ class ApiDataController extends Controller
     //
     public function fetchData()
     {
-        $response = Http::get('https://3c67c548-a6d1-4bcb-a6ae-fc297157efe6.mock.pstmn.io//api/v2/issues');
+        $url = 'https://3c67c548-a6d1-4bcb-a6ae-fc297157efe6.mock.pstmn.io';
+        $response = Http::get($url . '//api/v2/issues');
 
         if ($response->successful()) {
             $data = collect($response->json()) -> map(function($item) {
                 return [
                     'id' => $item['id'],
                     'title' => $item['summary'],
+                    'url' => $item['url'],
                 ];
             });
 
-            return Inertia::render('Import/Import',[
+
+            return Inertia::render('import/Import',[
                 'apiData' => $data,
             ]);
         } else {
-            return Inertia::render('Import/Import',[
+            return Inertia::render('import/Import',[
                 'error' => 'データの取得に失敗しました',
             ]);
         }

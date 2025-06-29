@@ -5,6 +5,9 @@ import { usePage } from '@inertiajs/vue3';
 const page = usePage();
 const apiData = page.props.apiData;
 const error = page.props.error;
+
+console.log('ページのプロップス：', page.props);
+console.log('apiData：', apiData);
 </script>
 
 <template>
