@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 //use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
-use Inertia\Inertia;
+// use Inertia\Inertia;
+
 
 class ApiDataController extends Controller
 {
@@ -20,16 +21,17 @@ class ApiDataController extends Controller
                     'id' => $item['id'],
                     'title' => $item['summary'],
                     'url' => $item['url'],
+                    'issue_key' => $item['issueKey'],
                 ];
             });
 
 
-            return Inertia::render('import/Import',[
+            return view('import.index',[
                 'apiData' => $data,
             ]);
         } else {
-            return Inertia::render('import/Import',[
-                'error' => 'データの取得に失敗しました',
+            return view('import.index', [
+                'error' => '取得できるデータがありません'
             ]);
         }
     }

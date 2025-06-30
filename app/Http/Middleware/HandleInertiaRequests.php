@@ -51,6 +51,28 @@ class HandleInertiaRequests extends Middleware
                 'location' => $request->url(),
             ],
             'sidebarOpen' => ! $request->hasCookie('sidebar_state') || $request->cookie('sidebar_state') === 'true',
+
+            'breadcrumbs' => $this->generateBreadcrumbs($request) ? $this->generateBreadcrumbs($request) : NULL,
         ];
+    }
+
+    private function generateBreadcrumbs(Request $request)
+    {
+        $routeName = $request->route()?->getName();
+
+        return in_array($routeName, [
+            'dashboard',
+            'import',
+        ]);
+
+        return match($routeName) {
+            'dashboard' => [
+                'title' => 'Dashboard', 'href' => route('dashboard')
+            ],
+            'import' => [
+                'title' => 'Import', 'href' => route('import')
+            ],
+            default => [],
+        };
     }
 }
